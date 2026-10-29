@@ -83,10 +83,10 @@ The digital depth gauge transmits data as a continuous stream of 24-bit packets:
 ### 2. Python Visualisation Dashboard
 
 <div align="center">
-  <video src="Digital_Gauge/Recording 2026-10-29 143327.mp4" width="450" autoplay loop muted playsinline></video>
+  <img src="Digital_Gauge/Recording 2026-10-29 143327.gif" alt="Python Dashboard Live Demonstration" width="450">
+  <br>
+  <em>Figure 2: Real-time demonstration of the Python dashboard capturing digital gauge measurements live over serial.</em>
 </div>
-
-Figure 2: Real-time demonstration of the Python dashboard capturing digital gauge measurements live over serial.
 
 #### Dependencies
 Install the required packages using pip:
