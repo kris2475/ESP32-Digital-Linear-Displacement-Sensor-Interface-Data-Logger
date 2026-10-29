@@ -51,7 +51,7 @@ To solve this, two NPN transistors (such as the **2N4401G**, acting as a drop-in
 
 ### Hardware Assembly 
 
-<div align="left">
+<div align="center">
   <img src="Digital_Gauge/IMG20261029143447.jpg" alt="Digital Tyre Tread Depth Gauge Hardware Interface Setup" width="400">
   <br>
   <em>Figure 1: Hardware prototype showing the digital gauge wired via the transistor-based level shifter interface board to the ESP32 microcontroller.</em>
