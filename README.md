@@ -36,9 +36,9 @@ To solve this, two NPN transistors (such as the **2N4401G**, acting as a drop-in
 
 | Connection Point | Component / Pin | Description |
 |---|---|---|
-| **Digital Gauge Signal** (`CLK` or `DATA` at 1.5V) | Transistor Base (`B`) | Connected directly from the gauge output pin straight to the transistor base (`B`) with no series or base resistor. |
+| **Digital Gauge Signal** (`CLK` or `DATA` at 1.5V) | Transistor Base (`B`) | Connected directly from the gauge output pin straight to the transistor base (`B`). |
 | **Transistor Emitter** (`E` of 2N4401G) | Ground (`GND`) | Tied directly to the common ground rail. |
-| **Transistor Collector** (`C` of 2N4401G) | Pull-up Resistor & 3.3V | Connected to the 3.3V rail via the **only** resistor in the circuit (e.g., $10\text{k}\Omega$ pull-up). |
+| **Transistor Collector** (`C` of 2N4401G) | Pull-up Resistor & 3.3V | Connected to the 3.3V rail via a $10\text{k}\Omega$ pull-up). |
 | **ESP32 GPIO Pin** | Collector Output | Tied directly to the transistor collector node (**GPIO 18** for CLK, **GPIO 19** for DATA) to read the inverted signal. |
 | **Common Ground** | `GND` | Digital gauge ground and ESP32 GND tied together. |
 
