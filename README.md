@@ -37,7 +37,7 @@ To solve this, two NPN transistors (such as the **2N4401G**, acting as a drop-in
 | Connection Point | Component / Pin | Description |
 |---|---|---|
 | **Digital Gauge Signal** (`CLK` or `DATA` at 1.5V) | Series Resistor | Connects from the gauge output pin through a base resistor (e.g., $10\text{k}\Omega$) into the transistor base. |
-| **Transistor Base** (`B` of 2N4401G) | Resistor Output | Receives the scaled 1.5V signal from the gauge. |
+| **Transistor Base** (`B` of 2N4401G) | Base Resistor Output | Receives the signal from the digital gauge. |
 | **Transistor Emitter** (`E` of 2N4401G) | Ground (`GND`) | Tied directly to the common ground rail. |
 | **Transistor Collector** (`C` of 2N4401G) | ESP32 GPIO Pin & Pull-up | Tied to the corresponding ESP32 pin (**GPIO 18** for CLK, **GPIO 19** for DATA) and connected via a pull-up resistor ($10\text{k}\Omega$) to the 3.3V rail. |
 | **Common Ground** | `GND` | Digital gauge ground and ESP32 GND tied together. |
