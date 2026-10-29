@@ -46,9 +46,9 @@ Digital Gauge (1.5V Logic)                       ESP32 (3.3V Logic)
 | **GPIO 19** | `DATA_PIN` | Serial data input (Sampled on clock pulse) |
 | **GND** | Ground | Common ground reference with interface board |
 
-### Hardware Assembly
+### Hardware Assembly 
 
-![Digital Tyre Tread Depth Gauge Hardware Interface Setup](Digital_Gauge/IMG20261029143447.jpg)  
+<img src="Digital_Gauge/IMG20261029143447.jpg" alt="Digital Tyre Tread Depth Gauge Hardware Interface Setup" width="300">
 *Figure 1: Hardware prototype showing the digital gauge wired via the transistor-based level shifter interface board to the ESP32 microcontroller.*
 
 ---
