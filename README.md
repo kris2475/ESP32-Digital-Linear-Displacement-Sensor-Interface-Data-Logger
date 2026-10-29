@@ -22,21 +22,34 @@ This project taps into the raw serial output lines of a battery-powered gauge, u
 
 Digital calipers and tread depth gauges natively operate on a single 1.5V button cell (`LR44` / `SR44`). Their data (`DATA`) and clock (`CLK`) signals operate at 1.5V CMOS levels, which cannot reliably trigger ESP32 digital inputs (minimum $V_{IH} \approx 2.4\text{V}$).
 
-To solve this, two NPN transistors (e.g., `2N2222` or `BC547`) are arranged in common-emitter configuration:
+To solve this, two NPN transistors (such as the **2N4401G**, acting as a drop-in replacement for `2N2222` or `BC547`) are arranged in a common-emitter configuration with pull-up resistors:
+
 1. When the gauge signal is **HIGH** (1.5V), the transistor turns on, pulling the ESP32 GPIO pin to **LOW** (0V).
-2. When the gauge signal is **LOW** (0V), the transistor turns off, allowing the internal/external pull-up resistor to pull the ESP32 GPIO pin to **HIGH** (3.3V).
+2. When the gauge signal is **LOW** (0V), the transistor turns off, allowing the pull-up resistor to pull the ESP32 GPIO pin to **HIGH** (3.3V).
 
 > **Note**: This circuit inverts the signal logic. Consequently, the firmware handles bit reading with inverted logic (`LOW` = Binary 1, `HIGH` = Binary 0) and triggers interrupts on the `FALLING` edge.
 
-Digital Gauge (1.5V Logic)                       ESP32 (3.3V Logic)
-   +------------------------+                       +-----------------+
-   |                        |                       |                 |
-   |  CLK Signal  ----------+---> [Transistor 1] ---> GPIO 18 (Interrupt)
-   |                        |                       |                 |
-   |  DATA Signal ----------+---> [Transistor 2] ---> GPIO 19         |
-   |                        |                       |                 |
-   |  GND ------------------+-----------------------> GND             |
-   +------------------------+                       +-----------------+
+### Circuit Schematic (Per Channel: CLK / DATA)
+
+```text
+           Digital Gauge (1.5V Logic)                       ESP32 (3.3V Logic)
+           +------------------------+                       +-----------------+
+           |                        |                       |                 |
+           |  Signal (CLK / DATA) --+---[ 10k Resistor ]----+                 |
+           |                        |                       |                 |
+           |                        |                    [Base]               |
+           |                        |                  2N4401G                |
+           |                        |                  [C]--[E]               |
+           |                        |                   |    |                |
+           |                        |                   |    +-----> GND      |
+           |                        |                   |                     |
+           |                        |                   +--+----------------> GPIO (18 / 19)
+           |                        |                      |                  |
+           |                        |                   [ 10k Pull-Up ]       |
+           |                        |                      |                  |
+           |                        |                     3.3V                |
+           |  GND ------------------+--------------------> GND              |
+           +------------------------+                       +-----------------+
    
 ### Pin Map
 
