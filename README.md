@@ -4,6 +4,8 @@ An ESP32-based hardware interface and Python data logging pipeline for digital t
 
 This project taps into the raw serial output lines of a battery-powered gauge, uses transistor-based level shifting and logic inversion to feed the signals safely into an ESP32, decodes the synchronous stream via high-speed interrupts, and provides real-time desktop visualisation with CSV export capabilities.
 
+> **Note**: The hardware interface and software decoding logic in this repository are modified from the original design by [Ipsilon Development](https://www.ipsilondev.com/maker/en/digital-gauge-arduino.php).
+
 ---
 
 ## Features
@@ -95,5 +97,3 @@ The digital depth gauge transmits data as a continuous stream of 24-bit packets:
 Install the required packages using pip:
 ```bash
 pip install pyserial matplotlib
-
-https://www.ipsilondev.com/maker/en/digital-gauge-arduino.php
