@@ -49,7 +49,7 @@ Digital Gauge (1.5V Logic)                       ESP32 (3.3V Logic)
 ### Hardware Assembly 
 
 <div align="center">
-  <img src="IMG20261029143447.jpg" alt="Digital Tyre Tread Depth Gauge Hardware Interface Setup" width="300">
+  <img src="Digital_Gauge/IMG20261029143447.jpg" alt="Digital Tyre Tread Depth Gauge Hardware Interface Setup" width="300">
   <br>
   <em>Figure 1: Hardware prototype showing the digital gauge wired via the transistor-based level shifter interface board to the ESP32 microcontroller.</em>
 </div>
