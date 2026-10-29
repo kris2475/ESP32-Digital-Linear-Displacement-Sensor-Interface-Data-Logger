@@ -22,6 +22,24 @@ This project taps into the raw serial output lines of a battery-powered gauge, u
 
 Digital calipers and tread depth gauges natively operate on a single 1.5V button cell (`LR44` / `SR44`). Their data (`DATA`) and clock (`CLK`) signals operate at 1.5V CMOS levels, which cannot reliably trigger ESP32 digital inputs (minimum $V_{IH} \approx 2.4\text{V}$).
 
+
+To solve this, two NPN transistors (such as the **2N4401G**, acting as a drop-in replacement for `2N2222` or `BC547`) are arranged in a common-emitter configuration with pull-up resistors:
+
+1. When the gauge signal is **HIGH** (1.5V), the transistor turns on, pulling the ESP32 GPIO pin to **LOW** (0V).
+2. When the gauge signal is **LOW** (0V), the transistor turns off, allowing the pull-up resistor to pull the ESP32 GPIO pin to **HIGH** (3.3V).
+
+> **Note**: This circuit inverts the signal logic. Consequently, the firmware handles bit reading with inverted logic (`LOW` = Binary 1, `HIGH` = Binary 0) and triggers interrupts on the `FALLING` edge.
+
+### Component Connection Wiring (Per Channel: CLK & DATA)
+
+| Connection Point | Component / Pin | Description |
+|---|---|---|
+| **Digital Gauge Signal** (`CLK` or `DATA` at 1.5V) | Series Resistor | Connects from the gauge output pin through a base resistor (e.g., $10\text{k}\Omega$) into the transistor base. |
+| **Transistor Base** (`B` of 2N4401G) | Resistor Output | Receives the scaled 1.5V signal from the gauge. |
+| **Transistor Emitter** (`E` of 2N4401G) | Ground (`GND`) | Tied directly to the common ground rail. |
+| **Transistor Collector** (`C` of 2N4401G) | ESP32 GPIO Pin & Pull-up | Tied to the corresponding ESP32 pin (**GPIO 18** for CLK, **GPIO 19** for DATA) and connected via a pull-up resistor ($10\text{k}\Omega$) to the 3.3V rail. |
+| **Common Ground** | `GND` | Digital gauge ground and ESP32 GND tied together. |
+
    
 ### Pin Map
 
