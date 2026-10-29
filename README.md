@@ -1,8 +1,8 @@
-# ESP32 Digital Tyre Tread Depth Gauge Interface & Data Logger
+# ESP32 Digital Linear Displacement Sensor Interface & Data Logger
 
-An ESP32-based hardware interface and Python data logging pipeline for digital tyre tread depth gauges (and standard digital calipers using the 24-bit protocol). 
+An ESP32-based hardware interface and Python data logging pipeline for digital displacement gauges, linear encoders, and precision measuring instruments (using the 24-bit caliper protocol). 
 
-This project taps into the raw serial output lines of a battery-powered gauge, uses transistor-based level shifting and logic inversion to feed the signals safely into an ESP32, decodes the synchronous stream via high-speed interrupts, and provides real-time desktop visualisation with CSV export capabilities.
+This project taps into the raw serial output lines of a battery-powered gauge, uses transistor-based level shifting and logic inversion to feed the signals safely into an ESP32, decodes the synchronous stream via high-speed interrupts, and provides real-time desktop visualisation with live velocity/acceleration plotting, a digital LED readout, and CSV export capabilities.
 
 > **Note**: The hardware interface and software decoding logic in this repository are modified from the original design by [Ipsilon Development](https://www.ipsilondev.com/maker/en/digital-gauge-arduino.php).
 
