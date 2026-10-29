@@ -28,5 +28,64 @@ To solve this, two NPN transistors (e.g., `2N2222` or `BC547`) are arranged in c
 
 > **Note**: This circuit inverts the signal logic. Consequently, the firmware handles bit reading with inverted logic (`LOW` = Binary 1, `HIGH` = Binary 0) and triggers interrupts on the `FALLING` edge.
 
+Digital Gauge (1.5V Logic)                       ESP32 (3.3V Logic)
+   +------------------------+                       +-----------------+
+   |                        |                       |                 |
+   |  CLK Signal  ----------+---> [Transistor 1] ---> GPIO 18 (Interrupt)
+   |                        |                       |                 |
+   |  DATA Signal ----------+---> [Transistor 2] ---> GPIO 19         |
+   |                        |                       |                 |
+   |  GND ------------------+-----------------------> GND             |
+   +------------------------+                       +-----------------+
+   
+### Pin Map
+
+| ESP32 Pin | Function | Description |
+|---|---|---|
+| **GPIO 18** | `CLOCK_PIN` | Serial clock input (Interrupt attached, falling edge) |
+| **GPIO 19** | `DATA_PIN` | Serial data input (Sampled on clock pulse) |
+| **GND** | Ground | Common ground reference with interface board |
+
+### Hardware Assembly
+
+![Digital Tyre Tread Depth Gauge Hardware Interface Setup](IMG20261029143447.jpg)  
+*Figure 1: Hardware prototype showing the digital gauge wired via the transistor-based level shifter interface board to the ESP32 microcontroller.*
+
+---
+
+## Data Protocol Specification
+
+The digital depth gauge transmits data as a continuous stream of 24-bit packets:
+
+1. **Frame Synchronisation**: A clock idle time exceeding ~3ms indicates a new packet boundary.
+2. **Bit Structure**:
+   - **Bits 0–19**: Core measurement value in units of $0.01\text{ mm}$ (LSB transmitted first).
+   - **Bit 20**: Sign bit (`0` = positive, `1` = negative).
+   - **Bits 21–23**: Reserved/Units flags.
+3. **Conversion**:
+   $$\text{Distance (mm)} = \frac{\text{Raw 20-bit Integer}}{100.0} \times (\text{Sign Bit} ? -1 : 1)$$
+
+---
+
+## Software Setup & Usage
+
+### 1. ESP32 Firmware
+
+1. Open `Digital_Depth_Gauge_Stream.ino` in the Arduino IDE or PlatformIO.
+2. Ensure the ESP32 board support package is installed.
+3. Select your ESP32 target board and COM port.
+4. Upload the code.
+5. Open the Serial Monitor at **115200 baud** to verify live measurement output.
+
+### 2. Python Visualisation Dashboard
+
+https://github.com/user-attachments/assets/Recording%202026-10-29%20143327.mp4
+
+*Figure 2: Real-time demonstration of the Python dashboard capturing digital gauge measurements live over serial.*
+
+#### Dependencies
+Install the required packages using pip:
+```bash
+pip install pyserial matplotlib
 
 https://www.ipsilondev.com/maker/en/digital-gauge-arduino.php
